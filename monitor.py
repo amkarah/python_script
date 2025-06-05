@@ -6,10 +6,13 @@ import json
 from time import gmtime, strftime
 from python_mongo import insert_data_log
 from db import create_tables, deploy_release
+from utils import create_directory
 
 dotenv.load_dotenv()
 horodatage_log = strftime("%Y-%m-%d", gmtime())
 horodatage_report = strftime("%Y-%m-%d", gmtime())
+
+create_directory()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -26,9 +29,11 @@ API_URL= os.environ.get("URL_API")
 APPS = os.environ.get("APPS")
 
 
+
 try:
     #creation de la table
     create_tables()
+
     
     if API_TOKEN and API_URL and APPS:
         params = { "app" : APPS}
